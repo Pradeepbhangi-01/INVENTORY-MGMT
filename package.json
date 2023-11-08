@@ -1,0 +1,17 @@
+{
+  "name": "inventory-app",
+  "version": "1.0.0",
+  "description": "it is a app to manage the inventory",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pradeep Bhangi",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1"
+  }
+}
