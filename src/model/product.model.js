@@ -14,13 +14,13 @@ export default class ProductModel {
   }
 
   // adding new products to the Products list
-  static add(productObj) {
+  static add(name, desc, price, imageUrl) {
     let newProduct = new ProductModel(
       products.length + 1,
-      productObj.name,
-      productObj.desc,
-      productObj.price,
-      productObj.imageUrl
+      name,
+      desc,
+      price,
+      imageUrl
     );
     products.push(newProduct);
   }

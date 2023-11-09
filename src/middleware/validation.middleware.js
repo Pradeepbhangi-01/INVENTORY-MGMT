@@ -6,7 +6,12 @@ const validateRequest = async (req, res, next) => {
     body("price")
       .isFloat({ gt: 0 })
       .withMessage("Price should be a Positive Value"),
-    body("imageUrl").isURL().withMessage("Invalid Url"),
+    body("imageUrl").custom((value, { req }) => {
+      if (!req.file) {
+        throw new Error("Image is required");
+      }
+      return true;
+    }),
   ];
 
   await Promise.all(rules.map((rule) => rule.run(req)));
