@@ -1,25 +1,37 @@
-<!-- views/add-product.ejs -->
-
-<h1 class="mt-5 mb-4 headers">Add New Product</h1>
+<h1 class="mt-5 mb-4 headers">Update Product</h1>
 
 <%if(errorMessage){ %>
 <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
 <%}%>
 
-<form action="/" method="post">
+<form action="/update-product/" method="post">
+  <input
+    type="hidden"
+    class="form-control"
+    id="id"
+    name="id"
+    value="<%= product.id %>"
+  />
+
   <div class="mb-3">
     <label for="name" class="form-label">Product Name</label>
-    <input type="text" class="form-control" id="name" name="name" required />
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      required
+      value="<%= product.name %>"
+    />
   </div>
   <div class="mb-3">
     <label for="desc" class="form-label">Product Description</label>
-    <textarea
-      class="form-control"
-      id="desc"
-      name="desc"
-      rows="3"
-      required
-    ></textarea>
+    <textarea class="form-control" id="desc" name="desc" rows="3" required>
+<%="product.desc"%>
+      
+      
+  
+    </textarea>
   </div>
   <div class="mb-3">
     <label for="price" class="form-label">Price</label>
@@ -30,6 +42,7 @@
       name="price"
       step="0.01"
       required
+      value="<%= product.price %>"
     />
   </div>
   <div class="mb-3">
@@ -40,7 +53,8 @@
       id="imageUrl"
       name="imageUrl"
       required
+      value="<%= product.imageUrl %>"
     />
   </div>
-  <button type="submit" class="btn btn-primary">Add Product</button>
+  <button type="submit" class="btn btn-primary">Update Product</button>
 </form>

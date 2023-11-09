@@ -1,22 +1,21 @@
-const validateRequest = (req, res, next) => {
-  // validate data
-  const { name, price, imageUrl } = req.body;
-  let errors = [];
-  if (!name || name.trim() == "") {
-    errors.push("Name is required");
-  }
-  if (!price || parseFloat(price) < 1) {
-    errors.push("Price must be a positive value");
-  }
-  try {
-    const validUrl = new URL(imageUrl);
-  } catch (err) {
-    errors.push("URL is invalid");
-  }
+import { body, validationResult } from "express-validator";
 
-  if (errors.length > 0) {
+const validateRequest = async (req, res, next) => {
+  const rules = [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("price")
+      .isFloat({ gt: 0 })
+      .withMessage("Price should be a Positive Value"),
+    body("imageUrl").isURL().withMessage("Invalid Url"),
+  ];
+
+  await Promise.all(rules.map((rule) => rule.run(req)));
+
+  var valiadtionErrors = validationResult(req);
+
+  if (!valiadtionErrors.isEmpty()) {
     return res.render("new-product", {
-      errorMessage: errors[0],
+      errorMessage: valiadtionErrors.array()[0].msg,
     });
   }
 

@@ -5,6 +5,7 @@ import ejsLayouts from "express-ejs-layouts";
 import validationMiddleware from "./src/middleware/validation.middleware.js";
 const app = express();
 
+app.use(express.static("public"));
 //parse  form data
 app.use(urlencoded({ extended: true }));
 
@@ -17,8 +18,11 @@ app.use(ejsLayouts);
 const productController = new ProductController();
 
 app.get("/", productController.getProducts);
-app.get("/new", productController.getAddProduct);
+app.get("/add-product", productController.getAddProduct);
+app.get("/update-product/:id", productController.getUpdateProductView);
 app.post("/", validationMiddleware, productController.postAddProduct);
+app.post("/update-product", productController.postUpdateProduct);
+app.post("/delete-product/:id", productController.deleteProduct);
 
 app.use(express.static("src/views"));
 app.listen(3500, () => {
